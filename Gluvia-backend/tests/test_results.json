@@ -1,0 +1,63 @@
+{
+  "timestamp": "2025-09-03T04:42:35.198316",
+  "total_suites": 5,
+  "results": [
+    {
+      "suite": "Authentication",
+      "details": "User registration, login, deletion, concurrent operations",
+      "success": false,
+      "total_tests": 0,
+      "passed_tests": 0,
+      "failed_tests": 0,
+      "stdout": "",
+      "stderr": "C:\\Users\\srija\\miniconda3\\envs\\Gluvia\\Lib\\site-packages\\_pytest\\config\\__init__.py:331: PluggyTeardownRaisedWarning: A plugin raised an exception during an old-style hookwrapper teardown.\nPlugin: helpconfig, Hook: pytest_cmdline_parse\nUsageError: usage: __main__.py [options] [file_or_dir] [file_or_dir] [...]\n__main__.py: error: unrecognized arguments: --json-report --json-report-file=temp_result.json\n  inifile: None\n  rootdir: C:\\Users\\srija\\PycharmProjects\\Gluvia\nFor more information see https://pluggy.readthedocs.io/en/stable/api_reference.html#pluggy.PluggyTeardownRaisedWarning\n  config = pluginmanager.hook.pytest_cmdline_parse(\nERROR: usage: __main__.py [options] [file_or_dir] [file_or_dir] [...]\n__main__.py: error: unrecognized arguments: --json-report --json-report-file=temp_result.json\n  inifile: None\n  rootdir: C:\\Users\\srija\\PycharmProjects\\Gluvia\n\n"
+    },
+    {
+      "suite": "Prescriptions",
+      "details": "Prescription creation, questionnaires, dose logging",
+      "success": false,
+      "total_tests": 0,
+      "passed_tests": 0,
+      "failed_tests": 0,
+      "stdout": "",
+      "stderr": "C:\\Users\\srija\\miniconda3\\envs\\Gluvia\\Lib\\site-packages\\_pytest\\config\\__init__.py:331: PluggyTeardownRaisedWarning: A plugin raised an exception during an old-style hookwrapper teardown.\nPlugin: helpconfig, Hook: pytest_cmdline_parse\nUsageError: usage: __main__.py [options] [file_or_dir] [file_or_dir] [...]\n__main__.py: error: unrecognized arguments: --json-report --json-report-file=temp_result.json\n  inifile: None\n  rootdir: C:\\Users\\srija\\PycharmProjects\\Gluvia\nFor more information see https://pluggy.readthedocs.io/en/stable/api_reference.html#pluggy.PluggyTeardownRaisedWarning\n  config = pluginmanager.hook.pytest_cmdline_parse(\nERROR: usage: __main__.py [options] [file_or_dir] [file_or_dir] [...]\n__main__.py: error: unrecognized arguments: --json-report --json-report-file=temp_result.json\n  inifile: None\n  rootdir: C:\\Users\\srija\\PycharmProjects\\Gluvia\n\n"
+    },
+    {
+      "suite": "Safety",
+      "details": "Insulin dose safety checks, overdose detection",
+      "success": false,
+      "total_tests": 0,
+      "passed_tests": 0,
+      "failed_tests": 0,
+      "stdout": "",
+      "stderr": "C:\\Users\\srija\\miniconda3\\envs\\Gluvia\\Lib\\site-packages\\_pytest\\config\\__init__.py:331: PluggyTeardownRaisedWarning: A plugin raised an exception during an old-style hookwrapper teardown.\nPlugin: helpconfig, Hook: pytest_cmdline_parse\nUsageError: usage: __main__.py [options] [file_or_dir] [file_or_dir] [...]\n__main__.py: error: unrecognized arguments: --json-report --json-report-file=temp_result.json\n  inifile: None\n  rootdir: C:\\Users\\srija\\PycharmProjects\\Gluvia\nFor more information see https://pluggy.readthedocs.io/en/stable/api_reference.html#pluggy.PluggyTeardownRaisedWarning\n  config = pluginmanager.hook.pytest_cmdline_parse(\nERROR: usage: __main__.py [options] [file_or_dir] [file_or_dir] [...]\n__main__.py: error: unrecognized arguments: --json-report --json-report-file=temp_result.json\n  inifile: None\n  rootdir: C:\\Users\\srija\\PycharmProjects\\Gluvia\n\n"
+    },
+    {
+      "suite": "Performance",
+      "details": "Load testing, concurrent users, memory usage",
+      "success": false,
+      "total_tests": 0,
+      "passed_tests": 0,
+      "failed_tests": 0,
+      "stdout": "",
+      "stderr": "C:\\Users\\srija\\miniconda3\\envs\\Gluvia\\Lib\\site-packages\\_pytest\\config\\__init__.py:331: PluggyTeardownRaisedWarning: A plugin raised an exception during an old-style hookwrapper teardown.\nPlugin: helpconfig, Hook: pytest_cmdline_parse\nUsageError: usage: __main__.py [options] [file_or_dir] [file_or_dir] [...]\n__main__.py: error: unrecognized arguments: --json-report --json-report-file=temp_result.json\n  inifile: None\n  rootdir: C:\\Users\\srija\\PycharmProjects\\Gluvia\nFor more information see https://pluggy.readthedocs.io/en/stable/api_reference.html#pluggy.PluggyTeardownRaisedWarning\n  config = pluginmanager.hook.pytest_cmdline_parse(\nERROR: usage: __main__.py [options] [file_or_dir] [file_or_dir] [...]\n__main__.py: error: unrecognized arguments: --json-report --json-report-file=temp_result.json\n  inifile: None\n  rootdir: C:\\Users\\srija\\PycharmProjects\\Gluvia\n\n"
+    },
+    {
+      "suite": "Integration",
+      "details": "End-to-end authentication flow testing",
+      "success": false,
+      "total_tests": 0,
+      "passed_tests": 0,
+      "failed_tests": 0,
+      "stdout": "",
+      "stderr": "C:\\Users\\srija\\miniconda3\\envs\\Gluvia\\Lib\\site-packages\\_pytest\\config\\__init__.py:331: PluggyTeardownRaisedWarning: A plugin raised an exception during an old-style hookwrapper teardown.\nPlugin: helpconfig, Hook: pytest_cmdline_parse\nUsageError: usage: __main__.py [options] [file_or_dir] [file_or_dir] [...]\n__main__.py: error: unrecognized arguments: --json-report --json-report-file=temp_result.json\n  inifile: None\n  rootdir: C:\\Users\\srija\\PycharmProjects\\Gluvia\nFor more information see https://pluggy.readthedocs.io/en/stable/api_reference.html#pluggy.PluggyTeardownRaisedWarning\n  config = pluginmanager.hook.pytest_cmdline_parse(\nERROR: usage: __main__.py [options] [file_or_dir] [file_or_dir] [...]\n__main__.py: error: unrecognized arguments: --json-report --json-report-file=temp_result.json\n  inifile: None\n  rootdir: C:\\Users\\srija\\PycharmProjects\\Gluvia\n\n"
+    }
+  ],
+  "passed_suites": 0,
+  "failed_suites": 5,
+  "total_tests": 0,
+  "passed_tests": 0,
+  "failed_tests": 0,
+  "warnings": [],
+  "coverage": {}
+}

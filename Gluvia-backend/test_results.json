@@ -1,0 +1,71 @@
+{
+  "timestamp": "2025-09-03T04:32:04.234172",
+  "total_tests": 9,
+  "passed_tests": 0,
+  "total_duration": 112.80003476142883,
+  "results": [
+    {
+      "name": "Authentication Tests",
+      "success": false,
+      "duration": 9.148386716842651,
+      "test_count": 11,
+      "output": "============================= test session starts =============================\nplatform win32 -- Python 3.13.5, pytest-7.4.3, pluggy-1.6.0 -- C:\\Users\\srija\\miniconda3\\envs\\Gluvia\\python.exe\ncachedir: .pytest_cache\nmetadata: {'Python': '3.13.5', 'Platform': 'Windows-11-10.0.26100-SP0', 'Packages': {'pytest': '7.4.3', 'pluggy': '1.6.0'}, 'Plugins': {'anyio': '3.7.1', 'asyncio': '0.21.1', 'cov': '4.1.0', 'html': '4.1.1', 'metadata': '3.1.1'}}\nrootdir: C:\\Users\\srija\\PycharmProjects\\Gluvia\nplugins: anyio-3.7.1, asyncio-0.21.1, cov-4.1.0, html-4.1.1, metadata-3.1.1\nasyncio: mode=Mode.STRICT\ncollecting ... collected 11 items\n\ntests/test_auth.py::TestAuthentication::test_user_registration_success PASSED [  9%]\ntests/test_auth.py::TestAuthentication::test_user_registration_duplicate_username PASSED [ 18%]\ntests/test_auth.py::TestAuthentication::test_user_registration_duplicate_email PASSED [ 27%]\ntests/test_auth.py::TestAuthentication::test_user_login_success PASSED   [ 36%]\ntests/test_auth.py::TestAuthentication::test_user_login_invalid_credentials PASSED [ 45%]\ntests/test_auth.py::TestAuthentication::test_protected_endpoint_without_token PASSED [ 54%]\ntests/test_auth.py::TestAuthentication::test_protected_endpoint_with_token PASSED [ 63%]\ntests/test_auth.py::TestAuthentication::test_delete_user_account PASSED  [ 72%]\ntests/test_auth.py::TestAuthentication::test_admin_delete_user PASSED    [ 81%]\ntests/test_auth.py::TestAuthentication::test_multiple_user_creation_and_cleanup PASSED [ 90%]\ntests/test_auth.py::TestAuthentication::test_concurrent_user_operations PASSED [100%]\n\n======================= 11 passed, 16 warnings in 6.15s ======================="
+    },
+    {
+      "name": "OCR Functionality Tests",
+      "success": false,
+      "duration": 9.765745639801025,
+      "test_count": 15,
+      "output": "============================= test session starts =============================\nplatform win32 -- Python 3.13.5, pytest-7.4.3, pluggy-1.6.0 -- C:\\Users\\srija\\miniconda3\\envs\\Gluvia\\python.exe\ncachedir: .pytest_cache\nmetadata: {'Python': '3.13.5', 'Platform': 'Windows-11-10.0.26100-SP0', 'Packages': {'pytest': '7.4.3', 'pluggy': '1.6.0'}, 'Plugins': {'anyio': '3.7.1', 'asyncio': '0.21.1', 'cov': '4.1.0', 'html': '4.1.1', 'metadata': '3.1.1'}}\nrootdir: C:\\Users\\srija\\PycharmProjects\\Gluvia\nplugins: anyio-3.7.1, asyncio-0.21.1, cov-4.1.0, html-4.1.1, metadata-3.1.1\nasyncio: mode=Mode.STRICT\ncollecting ... collected 15 items\n\ntests/test_ocr.py::TestOCRFunctionality::test_process_image_to_base64 PASSED [  6%]\ntests/test_ocr.py::TestOCRFunctionality::test_process_pdf_to_base64 PASSED [ 13%]\ntests/test_ocr.py::TestOCRFunctionality::test_process_pdf_to_base64_fewer_pages PASSED [ 20%]\ntests/test_ocr.py::TestOCRFunctionality::test_run_ocr_success PASSED     [ 26%]\ntests/test_ocr.py::TestOCRFunctionality::test_run_ocr_with_code_blocks PASSED [ 33%]\ntests/test_ocr.py::TestOCRFunctionality::test_run_ocr_json_decode_error PASSED [ 40%]\ntests/test_ocr.py::TestOCRFunctionality::test_run_ocr_api_error PASSED   [ 46%]\ntests/test_ocr.py::TestOCRFunctionality::test_run_ocr_empty_image_list PASSED [ 53%]\ntests/test_ocr.py::TestOCRFunctionality::test_run_ocr_multiple_images PASSED [ 60%]\ntests/test_ocr.py::TestOCRIntegration::test_create_and_process_test_image PASSED [ 66%]\ntests/test_ocr.py::TestOCRIntegration::test_ocr_prompt_structure PASSED  [ 73%]\ntests/test_ocr.py::TestOCRErrorHandling::test_process_pdf_with_invalid_content PASSED [ 80%]\ntests/test_ocr.py::TestOCRErrorHandling::test_process_image_with_empty_content PASSED [ 86%]\ntests/test_ocr.py::TestOCRErrorHandling::test_run_ocr_with_network_timeout PASSED [ 93%]\ntests/test_ocr.py::TestOCRErrorHandling::test_run_ocr_with_rate_limit PASSED [100%]\n\n======================= 15 passed, 10 warnings in 7.01s ======================="
+    },
+    {
+      "name": "Prescription Management Tests",
+      "success": false,
+      "duration": 5.611286878585815,
+      "test_count": 6,
+      "output": "============================= test session starts =============================\nplatform win32 -- Python 3.13.5, pytest-7.4.3, pluggy-1.6.0 -- C:\\Users\\srija\\miniconda3\\envs\\Gluvia\\python.exe\ncachedir: .pytest_cache\nmetadata: {'Python': '3.13.5', 'Platform': 'Windows-11-10.0.26100-SP0', 'Packages': {'pytest': '7.4.3', 'pluggy': '1.6.0'}, 'Plugins': {'anyio': '3.7.1', 'asyncio': '0.21.1', 'cov': '4.1.0', 'html': '4.1.1', 'metadata': '3.1.1'}}\nrootdir: C:\\Users\\srija\\PycharmProjects\\Gluvia\nplugins: anyio-3.7.1, asyncio-0.21.1, cov-4.1.0, html-4.1.1, metadata-3.1.1\nasyncio: mode=Mode.STRICT\ncollecting ... collected 6 items\n\ntests/test_prescriptions.py::TestPrescriptions::test_create_prescription_success PASSED [ 16%]\ntests/test_prescriptions.py::TestPrescriptions::test_get_active_prescription PASSED [ 33%]\ntests/test_prescriptions.py::TestPrescriptions::test_get_active_prescription_not_found PASSED [ 50%]\ntests/test_prescriptions.py::TestPrescriptions::test_get_comprehensive_status PASSED [ 66%]\ntests/test_prescriptions.py::TestPrescriptions::test_questionnaire_template PASSED [ 83%]\ntests/test_prescriptions.py::TestPrescriptions::test_multiple_prescriptions_only_one_active PASSED [100%]\n\n======================= 6 passed, 21 warnings in 2.98s ========================"
+    },
+    {
+      "name": "Prescription Upload Tests",
+      "success": false,
+      "duration": 46.145662784576416,
+      "test_count": 0,
+      "output": "<sys>:0: DeprecationWarning: builtin type swigvarlink has no __module__ attribute\n"
+    },
+    {
+      "name": "Dose Tracking Tests",
+      "success": false,
+      "duration": 5.5274739265441895,
+      "test_count": 5,
+      "output": "============================= test session starts =============================\nplatform win32 -- Python 3.13.5, pytest-7.4.3, pluggy-1.6.0 -- C:\\Users\\srija\\miniconda3\\envs\\Gluvia\\python.exe\ncachedir: .pytest_cache\nmetadata: {'Python': '3.13.5', 'Platform': 'Windows-11-10.0.26100-SP0', 'Packages': {'pytest': '7.4.3', 'pluggy': '1.6.0'}, 'Plugins': {'anyio': '3.7.1', 'asyncio': '0.21.1', 'cov': '4.1.0', 'html': '4.1.1', 'metadata': '3.1.1'}}\nrootdir: C:\\Users\\srija\\PycharmProjects\\Gluvia\nplugins: anyio-3.7.1, asyncio-0.21.1, cov-4.1.0, html-4.1.1, metadata-3.1.1\nasyncio: mode=Mode.STRICT\ncollecting ... collected 5 items\n\ntests/test_prescriptions.py::TestDoseTracking::test_process_questionnaire_success PASSED [ 20%]\ntests/test_prescriptions.py::TestDoseTracking::test_questionnaire_with_overdose_warnings PASSED [ 40%]\ntests/test_prescriptions.py::TestDoseTracking::test_questionnaire_with_missed_doses PASSED [ 60%]\ntests/test_prescriptions.py::TestDoseTracking::test_dose_history_retrieval PASSED [ 80%]\ntests/test_prescriptions.py::TestDoseTracking::test_dose_history_invalid_days PASSED [100%]\n\n======================= 5 passed, 21 warnings in 2.73s ========================"
+    },
+    {
+      "name": "End-to-End Workflow Tests",
+      "success": false,
+      "duration": 5.27695107460022,
+      "test_count": 2,
+      "output": "============================= test session starts =============================\nplatform win32 -- Python 3.13.5, pytest-7.4.3, pluggy-1.6.0 -- C:\\Users\\srija\\miniconda3\\envs\\Gluvia\\python.exe\ncachedir: .pytest_cache\nmetadata: {'Python': '3.13.5', 'Platform': 'Windows-11-10.0.26100-SP0', 'Packages': {'pytest': '7.4.3', 'pluggy': '1.6.0'}, 'Plugins': {'anyio': '3.7.1', 'asyncio': '0.21.1', 'cov': '4.1.0', 'html': '4.1.1', 'metadata': '3.1.1'}}\nrootdir: C:\\Users\\srija\\PycharmProjects\\Gluvia\nplugins: anyio-3.7.1, asyncio-0.21.1, cov-4.1.0, html-4.1.1, metadata-3.1.1\nasyncio: mode=Mode.STRICT\ncollecting ... collected 2 items\n\ntests/test_prescriptions.py::TestEndToEndWorkflow::test_complete_user_journey PASSED [ 50%]\ntests/test_prescriptions.py::TestEndToEndWorkflow::test_multiple_users_concurrent_operations PASSED [100%]\n\n======================= 2 passed, 23 warnings in 2.23s ========================"
+    },
+    {
+      "name": "Safety Validation Tests",
+      "success": false,
+      "duration": 4.29360556602478,
+      "test_count": 12,
+      "output": "============================= test session starts =============================\nplatform win32 -- Python 3.13.5, pytest-7.4.3, pluggy-1.6.0 -- C:\\Users\\srija\\miniconda3\\envs\\Gluvia\\python.exe\ncachedir: .pytest_cache\nmetadata: {'Python': '3.13.5', 'Platform': 'Windows-11-10.0.26100-SP0', 'Packages': {'pytest': '7.4.3', 'pluggy': '1.6.0'}, 'Plugins': {'anyio': '3.7.1', 'asyncio': '0.21.1', 'cov': '4.1.0', 'html': '4.1.1', 'metadata': '3.1.1'}}\nrootdir: C:\\Users\\srija\\PycharmProjects\\Gluvia\nplugins: anyio-3.7.1, asyncio-0.21.1, cov-4.1.0, html-4.1.1, metadata-3.1.1\nasyncio: mode=Mode.STRICT\ncollecting ... collected 12 items\n\ntests/test_safety_validators.py::TestInsulinSafetyValidator::test_normal_doses_pass_validation PASSED [  8%]\ntests/test_safety_validators.py::TestInsulinSafetyValidator::test_high_dose_generates_warning PASSED [ 16%]\ntests/test_safety_validators.py::TestInsulinSafetyValidator::test_extremely_high_dose_raises_exception PASSED [ 25%]\ntests/test_safety_validators.py::TestInsulinSafetyValidator::test_zero_dose_raises_validation_error PASSED [ 33%]\ntests/test_safety_validators.py::TestInsulinSafetyValidator::test_negative_dose_raises_validation_error PASSED [ 41%]\ntests/test_safety_validators.py::TestInsulinSafetyValidator::test_bedtime_dose_warning PASSED [ 50%]\ntests/test_safety_validators.py::TestInsulinSafetyValidator::test_different_insulin_types_max_doses PASSED [ 58%]\ntests/test_safety_validators.py::TestInsulinSafetyValidator::test_daily_total_validation PASSED [ 66%]\ntests/test_safety_validators.py::TestInsulinSafetyValidator::test_overdose_pattern_detection PASSED [ 75%]\ntests/test_safety_validators.py::TestInsulinSafetyValidator::test_prescription_data_validation PASSED [ 83%]\ntests/test_safety_validators.py::TestSafetyIntegration::test_safety_validation_in_questionnaire PASSED [ 91%]\ntests/test_safety_validators.py::TestSafetyIntegration::test_multiple_user_safety_isolation PASSED [100%]\n\n======================= 12 passed, 17 warnings in 1.62s ======================="
+    },
+    {
+      "name": "Performance & Stress Tests",
+      "success": false,
+      "duration": 23.110153913497925,
+      "test_count": 11,
+      "output": "============================= test session starts =============================\nplatform win32 -- Python 3.13.5, pytest-7.4.3, pluggy-1.6.0 -- C:\\Users\\srija\\miniconda3\\envs\\Gluvia\\python.exe\ncachedir: .pytest_cache\nmetadata: {'Python': '3.13.5', 'Platform': 'Windows-11-10.0.26100-SP0', 'Packages': {'pytest': '7.4.3', 'pluggy': '1.6.0'}, 'Plugins': {'anyio': '3.7.1', 'asyncio': '0.21.1', 'cov': '4.1.0', 'html': '4.1.1', 'metadata': '3.1.1'}}\nrootdir: C:\\Users\\srija\\PycharmProjects\\Gluvia\nplugins: anyio-3.7.1, asyncio-0.21.1, cov-4.1.0, html-4.1.1, metadata-3.1.1\nasyncio: mode=Mode.STRICT\ncollecting ... collected 11 items\n\ntests/test_performance.py::TestPerformance::test_rapid_user_creation PASSED [  9%]\ntests/test_performance.py::TestPerformance::test_concurrent_prescription_creation PASSED [ 18%]\ntests/test_performance.py::TestPerformance::test_bulk_questionnaire_processing PASSED [ 27%]\ntests/test_performance.py::TestPerformance::test_dose_history_large_dataset PASSED [ 36%]\ntests/test_performance.py::TestStressScenarios::test_user_limit_stress PASSED [ 45%]\ntests/test_performance.py::TestStressScenarios::test_rapid_api_calls PASSED [ 54%]\ntests/test_performance.py::TestStressScenarios::test_memory_usage_monitoring PASSED [ 63%]\ntests/test_performance.py::TestErrorHandling::test_database_error_simulation PASSED [ 72%]\ntests/test_performance.py::TestErrorHandling::test_invalid_data_handling PASSED [ 81%]\ntests/test_performance.py::TestErrorHandling::test_authentication_edge_cases PASSED [ 90%]\ntests/test_performance.py::TestErrorHandling::test_data_consistency_under_load PASSED [100%]\n\n====================== 11 passed, 99 warnings in 20.56s ======================="
+    },
+    {
+      "name": "Integration Tests",
+      "success": false,
+      "duration": 3.9207682609558105,
+      "test_count": 5,
+      "output": "============================= test session starts =============================\nplatform win32 -- Python 3.13.5, pytest-7.4.3, pluggy-1.6.0 -- C:\\Users\\srija\\miniconda3\\envs\\Gluvia\\python.exe\ncachedir: .pytest_cache\nmetadata: {'Python': '3.13.5', 'Platform': 'Windows-11-10.0.26100-SP0', 'Packages': {'pytest': '7.4.3', 'pluggy': '1.6.0'}, 'Plugins': {'anyio': '3.7.1', 'asyncio': '0.21.1', 'cov': '4.1.0', 'html': '4.1.1', 'metadata': '3.1.1'}}\nrootdir: C:\\Users\\srija\\PycharmProjects\\Gluvia\nplugins: anyio-3.7.1, asyncio-0.21.1, cov-4.1.0, html-4.1.1, metadata-3.1.1\nasyncio: mode=Mode.STRICT\ncollecting ... collected 5 items\n\ntests/test_integration_auth.py::test_registration PASSED                 [ 20%]\ntests/test_integration_auth.py::test_login PASSED                        [ 40%]\ntests/test_integration_auth.py::test_protected_route PASSED              [ 60%]\ntests/test_integration_auth.py::test_protected_route_without_token PASSED [ 80%]\ntests/test_integration_auth.py::test_protected_route_with_invalid_token PASSED [100%]\n\n======================= 5 passed, 11 warnings in 1.38s ========================"
+    }
+  ]
+}

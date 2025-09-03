@@ -1,0 +1,32 @@
+{
+    "Timestamp": "2025-09-03 04:42:45",
+    "TotalSuites": 5,
+    "Results": [
+        {
+            "Suite": "Authentication",
+            "Details": "User registration, login, deletion, concurrent operations",
+            "Success": false
+        },
+        {
+            "Suite": "Prescriptions",
+            "Details": "Prescription creation, questionnaires, dose logging",
+            "Success": false
+        },
+        {
+            "Suite": "Safety",
+            "Details": "Insulin dose safety checks, overdose detection",
+            "Success": false
+        },
+        {
+            "Suite": "Performance",
+            "Details": "Load testing, concurrent users, memory usage",
+            "Success": false
+        },
+        {
+            "Suite": "Integration",
+            "Details": "End-to-end authentication flow testing",
+            "Success": false
+        }
+    ],
+    "PassedSuites": 0
+}
