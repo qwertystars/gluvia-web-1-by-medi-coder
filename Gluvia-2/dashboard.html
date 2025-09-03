@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gluvia | Dashboard</title>
+    <link rel="stylesheet" href="header_style.css">
+    <link rel="stylesheet" href="dashboard_style.css">
+    <script src="config.js"></script>
+</head>
+<body>
+  
+  <!-- Error/Success message container -->
+  <div id="message-container" style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 1000;"></div>
+
+  <div id="header-placeholder"></div>
+
+  
+  <main class="content-area">
+    <div class="upload-container">
+      <label for="prescriptionUpload" class="upload-label">
+        <img src="attach_file.png" alt="Attach" width="20" height="20">
+        <span>Attach Prescription</span>
+      </label>
+      <input type="file" id="prescriptionUpload" hidden accept="image/*,.pdf">
+      <div id="loader" class="loader" style="display:none;"></div>
+      <p id="uploadMessage" class="upload-message" style="display: none;">Uploaded Successfully!</p>
+    </div>
+
+    <!-- Quick Status Section -->
+    <div class="status-section" style="margin-top: 30px;">
+      <h3>Today's Status</h3>
+      <div id="currentStatus">Loading...</div>
+    </div>
+  </main>
+
+  <script src="header_script.js"></script>
+  <script src="dashboard_script.js"></script>
+
+  <script>
+    // Check authentication on page load
+    if (!requireAuth()) {
+      // User will be redirected by requireAuth function
+    } else {
+      // Load user's current status
+      loadCurrentStatus();
+    }
+
+    async function loadCurrentStatus() {
+      try {
+        const status = await apiCall(API_CONFIG.ENDPOINTS.STATUS);
+        displayStatus(status);
+      } catch (error) {
+        console.error('Failed to load status:', error);
+        document.getElementById('currentStatus').innerHTML =
+          '<p style="color: red;">Failed to load status. Please try again.</p>';
+      }
+    }
+
+    function displayStatus(status) {
+      const statusDiv = document.getElementById('currentStatus');
+      statusDiv.innerHTML = `
+        <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; border-left: 4px solid #0ea5e9;">
+          <p><strong>Current Time:</strong> ${status.current_time}</p>
+          <p><strong>Current Zone:</strong> ${status.current_zone}</p>
+          <p><strong>Today's Doses:</strong> ${status.today_doses ? status.today_doses.length : 0} recorded</p>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

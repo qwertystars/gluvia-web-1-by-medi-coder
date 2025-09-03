@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Header</title>
+  <link rel="stylesheet" href="header_style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="config.js"></script>
+</head>
+<body>
+  <header class="navbar">
+  <!-- UPDATED: The logo is now wrapped in a link to the home page -->
+  <a href="dashboard.html" class="logo-link">
+    <img src="gluvia_logo_edited.png" alt="App Logo" class="logo">
+  </a>
+
+  <div class="nav-right">
+    <div class="user-menu">
+      <img src="user_icon.png" alt="User" class="user-icon">
+      <div class="dropdown">
+        <a href="#" id="profileLink">Account</a>
+        <a href="#" onclick="handleLogout()">Log Out</a>
+      </div>
+    </div>
+  </div>
+</header>
+<nav class="section-bar">
+  <a href="dashboard.html">Home</a>
+  <a href="dosSche.html">Dosage Schedule</a>
+  <a href="dosAssis.html">Dosage Assistant</a>
+  <a href="docdetail.html">Doctor Details</a>
+  <a href="prescription.html">Prescriptions</a>
+  <a href="quickinfo.html">Quick Tips</a>
+</nav>
+
+<script>
+  function handleLogout() {
+    if (confirm('Are you sure you want to log out?')) {
+      auth.logout();
+    }
+  }
+
+  // Load user profile info if needed
+  async function loadUserProfile() {
+    try {
+      const profile = await auth.getProfile();
+      // You can update the UI with user info here if needed
+      console.log('User profile loaded:', profile);
+    } catch (error) {
+      console.error('Failed to load profile:', error);
+    }
+  }
+
+  // Load profile on page load
+  if (auth.isLoggedIn()) {
+    loadUserProfile();
+  }
+</script>
+
+<script src="header_script.js"></script>
+</body>
+</html>

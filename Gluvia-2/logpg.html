@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insulin Dose Tracker</title>
+<link rel="stylesheet" href="logpg_style.css">
+<script src="config.js"></script>
+</head>
+<body>
+
+<header>
+    <h1>Insulin Dose Tracker</h1>
+</header>
+
+<div class="container">
+    <!-- Error/Success message container -->
+    <div id="message-container" style="margin-bottom: 20px;"></div>
+
+    <div id="question-section">
+        <p id="question-text">Loading your insulin schedule...</p>
+
+        <div id="meal-taken-section" class="input-section">
+            <label>Did you take your meal?</label>
+            <select id="meal-taken">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+            <button onclick="nextStep()">Next</button>
+        </div>
+
+        <div id="dose-taken-section" class="input-section" style="display:none;">
+            <label>Did you take your insulin dose?</label>
+            <select id="dose-taken">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+            <button onclick="nextStep()">Next</button>
+        </div>
+
+        <div id="dose-amount-section" class="input-section" style="display:none;">
+            <label>Enter amount of dose taken (units):</label>
+            <input type="number" id="dose-amount" step="0.1" min="0">
+            <button onclick="nextStep()">Next</button>
+        </div>
+
+        <div id="meal-time-section" class="input-section" style="display:none;">
+            <label>Enter meal time (HH:MM 24h):</label>
+            <input type="time" id="meal-time">
+            <button onclick="nextStep()">Next</button>
+        </div>
+
+        <div id="meal-selection" class="input-section" style="display:none;">
+            <label>Select meal:</label>
+            <select id="meal-select">
+                <option value="breakfast">Breakfast</option>
+                <option value="mid_morning">Mid Morning</option>
+                <option value="lunch">Lunch</option>
+                <option value="dinner">Dinner</option>
+                <option value="snack">Snack</option>
+            </select>
+            <button onclick="startQuestionnaire()">Start</button>
+        </div>
+    </div>
+
+    <div id="result-section" style="display:none;">
+        <h2>Today's Insulin Schedule & Advice</h2>
+        <div id="warnings-section"></div>
+        <table id="result-table">
+            <thead>
+                <tr>
+                    <th>Meal</th>
+                    <th>Insulin</th>
+                    <th>Prescribed Dose</th>
+                    <th>Status</th>
+                    <th>Advice</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <button onclick="resetQuestionnaire()" style="margin-top: 20px;">Start New Assessment</button>
+    </div>
+
+</div>
+
+<script>
+// Check authentication on page load
+if (!requireAuth()) {
+    // User will be redirected by requireAuth function
+}
+
+let currentTemplate = null;
+let currentMealIndex = 0;
+let mealResponses = {};
+let currentMeal = null;
+
+// Initialize the page
+window.onload = async function() {
+    await loadTemplate();
+};
+
+async function loadTemplate() {
+    try {
+        const template = await apiCall(API_CONFIG.ENDPOINTS.TEMPLATE);
+        currentTemplate = template;
+
+        document.getElementById('question-text').textContent =
+            `Current time: ${template.current_time} (${template.current_zone} zone)`;
+
+        // Show meal selection
+        document.getElementById('meal-selection').style.display = 'block';
+
+        // Set default meal based on current zone
+        const mealSelect = document.getElementById('meal-select');
+        const currentZone = template.current_zone.toLowerCase();
+        if (currentZone.includes('breakfast')) mealSelect.value = 'breakfast';
+        else if (currentZone.includes('lunch')) mealSelect.value = 'lunch';
+        else if (currentZone.includes('dinner')) mealSelect.value = 'dinner';
+        else if (currentZone.includes('morning')) mealSelect.value = 'mid_morning';
+        else mealSelect.value = 'snack';
+
+    } catch (error) {
+        showError('Failed to load insulin schedule: ' + error.message, 'message-container');
+    }
+}
+
+function startQuestionnaire() {
+    currentMeal = document.getElementById('meal-select').value;
+    document.getElementById('meal-selection').style.display = 'none';
+
+    // Find the meal in template
+    const mealData = currentTemplate.template.find(m => m.meal_time === currentMeal);
+    if (mealData) {
+        document.getElementById('question-text').textContent =
+            `${mealData.meal} - ${mealData.insulin} (${mealData.prescribed_dose} units)`;
+    }
+
+    document.getElementById('meal-taken-section').style.display = 'block';
+}
+
+function nextStep() {
+    const mealTakenSection = document.getElementById('meal-taken-section');
+    const doseTakenSection = document.getElementById('dose-taken-section');
+    const doseAmountSection = document.getElementById('dose-amount-section');
+    const mealTimeSection = document.getElementById('meal-time-section');
+
+    if (mealTakenSection.style.display !== 'none') {
+        // Meal taken step
+        mealTakenSection.style.display = 'none';
+        doseTakenSection.style.display = 'block';
+    } else if (doseTakenSection.style.display !== 'none') {
+        // Dose taken step
+        const doseTaken = document.getElementById('dose-taken').value;
+        doseTakenSection.style.display = 'none';
+
+        if (doseTaken === 'yes') {
+            doseAmountSection.style.display = 'block';
+        } else {
+            // If no dose taken, record and proceed to time
+            mealResponses[currentMeal] = { taken: false };
+            mealTimeSection.style.display = 'block';
+        }
+    } else if (doseAmountSection.style.display !== 'none') {
+        // Dose amount step
+        const actualDose = parseFloat(document.getElementById('dose-amount').value);
+        mealResponses[currentMeal] = {
+            taken: true,
+            actual_dose: actualDose
+        };
+        doseAmountSection.style.display = 'none';
+        mealTimeSection.style.display = 'block';
+    } else if (mealTimeSection.style.display !== 'none') {
+        // Meal time step - final step
+        const mealTime = document.getElementById('meal-time').value;
+        if (!mealResponses[currentMeal]) {
+            mealResponses[currentMeal] = {};
+        }
+        mealResponses[currentMeal].meal_time = mealTime;
+
+        mealTimeSection.style.display = 'none';
+        submitQuestionnaire();
+    }
+}
+
+async function submitQuestionnaire() {
+    try {
+        document.getElementById('question-text').textContent = 'Processing your responses...';
+
+        const response = await apiCall(API_CONFIG.ENDPOINTS.DAILY_QUESTIONNAIRE, {
+            method: 'POST',
+            body: JSON.stringify({ responses: mealResponses })
+        });
+
+        displayResults(response);
+
+    } catch (error) {
+        showError('Failed to process questionnaire: ' + error.message, 'message-container');
+    }
+}
+
+function displayResults(data) {
+    document.getElementById('question-section').style.display = 'none';
+    document.getElementById('result-section').style.display = 'block';
+
+    // Display warnings
+    const warningsSection = document.getElementById('warnings-section');
+    let warningsHtml = '';
+
+    if (data.warnings && data.warnings.length > 0) {
+        warningsHtml += '<div class="warnings" style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; margin: 10px 0; border-radius: 5px;">';
+        warningsHtml += '<h3 style="color: #856404;">⚠️ Warnings</h3>';
+        data.warnings.forEach(warning => {
+            warningsHtml += `<p style="color: #856404;">${warning}</p>`;
+        });
+        warningsHtml += '</div>';
+    }
+
+    if (data.critical_warnings && data.critical_warnings.length > 0) {
+        warningsHtml += '<div class="critical-warnings" style="background: #f8d7da; border: 1px solid #f5c6cb; padding: 15px; margin: 10px 0; border-radius: 5px;">';
+        warningsHtml += '<h3 style="color: #721c24;">🚨 CRITICAL WARNINGS</h3>';
+        data.critical_warnings.forEach(warning => {
+            warningsHtml += `<p style="color: #721c24; font-weight: bold;">${warning}</p>`;
+        });
+        warningsHtml += '</div>';
+    }
+
+    warningsSection.innerHTML = warningsHtml;
+
+    // Display schedule table
+    const tbody = document.querySelector('#result-table tbody');
+    tbody.innerHTML = '';
+
+    data.schedule.forEach(meal => {
+        const row = tbody.insertRow();
+        row.insertCell(0).textContent = meal.meal;
+        row.insertCell(1).textContent = meal.insulin;
+        row.insertCell(2).textContent = meal.prescribed_dose + ' units';
+        row.insertCell(3).textContent = meal.status;
+        row.insertCell(4).textContent = meal.advice || '';
+
+        // Color code based on status
+        if (meal.status.includes('OVERDOSE') || meal.status.includes('CRITICAL')) {
+            row.style.backgroundColor = '#f8d7da';
+        } else if (meal.status.includes('WARNING')) {
+            row.style.backgroundColor = '#fff3cd';
+        } else if (meal.status.includes('TAKEN') || meal.status.includes('GOOD')) {
+            row.style.backgroundColor = '#d4edda';
+        }
+    });
+}
+
+function resetQuestionnaire() {
+    // Reset all variables
+    mealResponses = {};
+    currentMeal = null;
+
+    // Hide result section
+    document.getElementById('result-section').style.display = 'none';
+    document.getElementById('question-section').style.display = 'block';
+
+    // Reset form elements
+    document.getElementById('meal-taken').value = 'yes';
+    document.getElementById('dose-taken').value = 'yes';
+    document.getElementById('dose-amount').value = '';
+    document.getElementById('meal-time').value = '';
+
+    // Hide all sections except meal selection
+    document.getElementById('meal-taken-section').style.display = 'none';
+    document.getElementById('dose-taken-section').style.display = 'none';
+    document.getElementById('dose-amount-section').style.display = 'none';
+    document.getElementById('meal-time-section').style.display = 'none';
+    document.getElementById('meal-selection').style.display = 'block';
+
+    // Reload template
+    loadTemplate();
+}
+</script>
+
+</body>
+</html>

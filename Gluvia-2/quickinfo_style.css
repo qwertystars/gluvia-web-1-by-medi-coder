@@ -1,0 +1,70 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    gap: 2rem;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 2rem;
+    width: 95%;
+    max-width: 900px; 
+    color: #033b4a;
+    box-shadow: 0 8px 32px rgba(1, 107, 125, 0.2);
+}
+
+.card h2 {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    letter-spacing: 0.5px;
+    color: #016b7d;
+    text-align: center;
+}
+
+.card .welcome-text {
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.tips-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; 
+    margin-top: 1rem;
+}
+
+.tip-card {
+    display: flex;
+    align-items: flex-start; 
+    gap: 1.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 1.5rem 2rem;
+    border: 1px solid rgba(1, 107, 125, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    cursor: default;
+}
+
+.tip-card:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 10px 30px rgba(1, 107, 125, 0.25); 
+    background: rgba(255, 255, 255, 0.4); 
+    border-color: rgba(1, 107, 125, 0.4);
+}
+
+.tip-icon {
+    font-size: 2.5rem;
+    color: #e74c3c;
+    margin-top: 5px; 
+}
+
+.tip-text p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #2c3e50;
+}

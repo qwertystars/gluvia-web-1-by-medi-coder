@@ -1,0 +1,120 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gluvia | Patient Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="config.js"></script>
+  <style>
+    /* Smooth gradient animation */
+    body {
+      background: linear-gradient(270deg, #ffffff, #e0f7fa, #b3e5fc, #ffffff);
+      background-size: 400% 400%;
+      animation: gradientShift 18s ease infinite;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Floating logo animation */
+    .logo-img {
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* Input glow on focus */
+    .glow-input:focus {
+      box-shadow: 0 0 12px #4dd0e1;
+      border-color: #26c6da;
+    }
+
+    /* Slide-in animation */
+    .fade-in {
+      animation: fadeInUp 1s ease both;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+
+  <!-- Error/Success message container -->
+  <div id="message-container" class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50"></div>
+
+  <!-- Unified Container -->
+  <div class="flex bg-white/40 backdrop-blur-2xl p-10 rounded-3xl shadow-2xl w-4/5 max-w-5xl fade-in">
+    
+    <!-- Logo Section -->
+    <div class="flex-1 flex items-center justify-center">
+      <img src="gluvia_logo_edited.png" alt="Gluvia Logo" class="logo-img w-80 bg-white p-4 rounded-2xl shadow-lg" />
+    </div>
+
+    <!-- Login Form -->
+    <div class="flex-1 p-8">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">WELCOME</h2>
+      
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <input type="text" id="username" placeholder="Enter Username" required
+          class="glow-input w-full p-3 mb-4 border rounded-lg focus:outline-none transition" />
+        
+        <input type="password" id="password" placeholder="Enter Password" required
+          class="glow-input w-full p-3 mb-6 border rounded-lg focus:outline-none transition" />
+        
+        <button type="submit" id="loginBtn"
+          class="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-3 rounded-lg shadow-lg font-semibold hover:scale-105 transform transition">
+          Login
+        </button>
+      </form>
+
+      <p class="text-center text-sm text-gray-700 mt-4">
+        New user? <a href="sign_up.html" class="text-blue-600 hover:underline">Sign up</a> ·
+        <a href="#" class="text-blue-600 hover:underline">Forgot password?</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Check if user is already logged in
+    if (auth.isLoggedIn()) {
+      window.location.href = 'dashboard.html';
+    }
+
+    async function handleLogin(event) {
+      event.preventDefault();
+
+      const loginBtn = document.getElementById('loginBtn');
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      // Disable button and show loading state
+      loginBtn.disabled = true;
+      loginBtn.textContent = 'Logging in...';
+
+      try {
+        await auth.login(username, password);
+        showSuccess('Login successful! Redirecting...', 'message-container');
+
+        // Redirect to dashboard after successful login
+        setTimeout(() => {
+          window.location.href = 'dashboard.html';
+        }, 1500);
+
+      } catch (error) {
+        showError(error.message, 'message-container');
+
+        // Re-enable button
+        loginBtn.disabled = false;
+        loginBtn.textContent = 'Login';
+      }
+    }
+  </script>
+
+</body>
+</html>

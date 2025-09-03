@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dosage Schedule</title>
+    <link rel="stylesheet" href="header_style.css">
+    <link rel="stylesheet" href="dosSche_style.css">
+    <script src="config.js"></script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <!-- Error/Success message container -->
+    <div id="message-container" style="position: fixed; top: 80px; left: 50%; transform: translateX(-50%); z-index: 1000;"></div>
+
+    <main class="table-container">
+        <h1>Your Dosage Schedule</h1>
+        
+        <div id="loading" style="text-align: center; padding: 20px;">Loading your schedule...</div>
+
+        <div id="schedule-content" style="display: none;">
+            <div id="current-info" style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <p><strong>Current Time:</strong> <span id="current-time"></span></p>
+                <p><strong>Current Zone:</strong> <span id="current-zone"></span></p>
+            </div>
+
+            <table class="prescription-table">
+                <thead>
+                    <tr>
+                        <th>Meal</th>
+                        <th>Insulin</th>
+                        <th>Dose (units)</th>
+                        <th>Type</th>
+                        <th>Onset (min)</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                </tbody>
+            </table>
+        </div>
+
+        <div id="no-prescription" style="display: none; text-align: center; padding: 40px;">
+            <h3>No Active Prescription Found</h3>
+            <p>Please upload your prescription or contact your healthcare provider.</p>
+            <a href="dashboard.html" style="color: #007bff; text-decoration: underline;">Go to Dashboard to Upload Prescription</a>
+        </div>
+    </main>
+
+    <script src="header_script.js"></script>
+
+    <script>
+        // Check authentication on page load
+        if (!requireAuth()) {
+            // User will be redirected by requireAuth function
+        } else {
+            loadDosageSchedule();
+        }
+
+        async function loadDosageSchedule() {
+            try {
+                const template = await apiCall(API_CONFIG.ENDPOINTS.TEMPLATE);
+
+                document.getElementById('loading').style.display = 'none';
+
+                if (template.template && template.template.length > 0) {
+                    document.getElementById('schedule-content').style.display = 'block';
+
+                    // Update current info
+                    document.getElementById('current-time').textContent = template.current_time;
+                    document.getElementById('current-zone').textContent = template.current_zone;
+
+                    // Populate table
+                    const tbody = document.getElementById('table-body');
+                    tbody.innerHTML = '';
+
+                    template.template.forEach(meal => {
+                        const row = tbody.insertRow();
+                        row.insertCell(0).textContent = meal.meal;
+                        row.insertCell(1).textContent = meal.insulin;
+                        row.insertCell(2).textContent = meal.prescribed_dose;
+                        row.insertCell(3).textContent = meal.insulin_type;
+                        row.insertCell(4).textContent = meal.onset;
+
+                        // Determine status based on current time and meal
+                        const statusCell = row.insertCell(5);
+                        if (meal.is_past_or_current) {
+                            statusCell.textContent = "Current/Past";
+                            statusCell.style.color = "#28a745";
+                        } else {
+                            statusCell.textContent = "Upcoming";
+                            statusCell.style.color = "#6c757d";
+                        }
+
+                        // Highlight current meal zone
+                        if (template.current_zone.toLowerCase().includes(meal.meal_time)) {
+                            row.style.backgroundColor = "#e3f2fd";
+                            row.style.fontWeight = "bold";
+                        }
+                    });
+
+                    // Display warnings if any
+                    if (template.warnings && template.warnings.length > 0) {
+                        let warningsHtml = '<div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; margin: 20px 0; border-radius: 5px;">';
+                        warningsHtml += '<h4 style="color: #856404; margin-top: 0;">⚠️ Important Reminders</h4>';
+                        template.warnings.forEach(warning => {
+                            warningsHtml += `<p style="color: #856404; margin: 5px 0;">${warning}</p>`;
+                        });
+                        warningsHtml += '</div>';
+
+                        const scheduleContent = document.getElementById('schedule-content');
+                        scheduleContent.insertAdjacentHTML('beforeend', warningsHtml);
+                    }
+
+                } else {
+                    document.getElementById('no-prescription').style.display = 'block';
+                }
+
+            } catch (error) {
+                document.getElementById('loading').style.display = 'none';
+                showError('Failed to load dosage schedule: ' + error.message, 'message-container');
+            }
+        }
+    </script>
+</body>
+</html>

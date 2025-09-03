@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gluvia|SignUp</title>
+    <link rel="stylesheet" href="signup_style.css">
+    <script src="config.js"></script>
+</head>
+<body>
+    <!-- Error/Success message container -->
+    <div id="message-container" style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 1000;"></div>
+
+    <div class="signup-container">
+    <img src="gluvia_logo_edited.png" alt="Logo">
+    <h2>Create Account</h2>
+    <form id="signupForm" onsubmit="handleSignup(event)">
+      <div class="name-fields">
+        <input type="text" id="firstName" placeholder="First Name" required>
+        <input type="text" id="lastName" placeholder="Last Name" required>
+      </div>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="password" id="password" placeholder="Create Password" required>
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+      <button type="submit" id="signupBtn">Sign Up</button>
+      <p>Already have an account? <a href="index.html">Log In</a></p>
+    </form>
+  </div>
+
+  <script>
+    // Check if user is already logged in
+    if (auth.isLoggedIn()) {
+      window.location.href = 'dashboard.html';
+    }
+
+    async function handleSignup(event) {
+      event.preventDefault();
+
+      const signupBtn = document.getElementById('signupBtn');
+      const firstName = document.getElementById('firstName').value;
+      const lastName = document.getElementById('lastName').value;
+      const email = document.getElementById('email').value;
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      // Validate passwords match
+      if (password !== confirmPassword) {
+        showError('Passwords do not match', 'message-container');
+        return;
+      }
+
+      // Disable button and show loading state
+      signupBtn.disabled = true;
+      signupBtn.textContent = 'Creating Account...';
+
+      try {
+        await auth.register(username, email, password);
+        showSuccess('Account created successfully! Redirecting to login...', 'message-container');
+
+        // Redirect to login page after successful registration
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 2000);
+
+      } catch (error) {
+        showError(error.message, 'message-container');
+
+        // Re-enable button
+        signupBtn.disabled = false;
+        signupBtn.textContent = 'Sign Up';
+      }
+    }
+  </script>
+</body>
+</html>
